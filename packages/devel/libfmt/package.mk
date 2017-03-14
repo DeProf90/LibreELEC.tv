@@ -1,6 +1,6 @@
 ################################################################################
-#      This file is part of LibreELEC - https://libreelec.tv
-#      Copyright (C) 2016 Team LibreELEC
+#      This file is part of LibreELEC - http://www.libreelec.tv
+#      Copyright (C) 2017 Team LibreELEC
 #
 #  LibreELEC is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published by
@@ -16,36 +16,19 @@
 #  along with LibreELEC.  If not, see <http://www.gnu.org/licenses/>.
 ################################################################################
 
-PKG_NAME="x264"
-PKG_VERSION="snapshot-20170228-2245-stable"
+PKG_NAME="libfmt"
+PKG_VERSION="3.0.1"
 PKG_ARCH="any"
-PKG_LICENSE="GPL"
-PKG_SITE="http://www.videolan.org/developers/x264.html"
-PKG_URL="ftp://ftp.videolan.org/pub/videolan/x264/snapshots/$PKG_NAME-$PKG_VERSION.tar.bz2"
+PKG_LICENSE="BSD"
+PKG_SITE="https://github.com/fmtlib/fmt"
+PKG_URL="https://github.com/fmtlib/fmt/archive/$PKG_VERSION.tar.gz"
+PKG_SOURCE_DIR="fmt-$PKG_VERSION"
 PKG_DEPENDS_TARGET="toolchain"
-PKG_SECTION="multimedia"
-PKG_SHORTDESC="x264"
-PKG_LONGDESC="x264"
+PKG_SECTION="devel"
+PKG_SHORTDESC="fmt is an open-source formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams."
+PKG_LONGDESC="fmt is an open-source formatting library for C++. It can be used as a safe alternative to printf or as a fast alternative to IOStreams."
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
 
-pre_configure_target() {
-  cd $PKG_BUILD
-  rm -rf .$TARGET_NAME
-}
-
-configure_target() {
-  ./configure \
-    --prefix="/usr" \
-    --extra-cflags="$CFLAGS" \
-    --extra-ldflags="$LDFLAGS" \
-    --disable-cli \
-    --enable-static \
-    --enable-strip \
-    --disable-asm \
-    --enable-pic \
-    --host="$TARGET_NAME" \
-    --cross-prefix="$TARGET_PREFIX" \
-    --sysroot="$SYSROOT_PREFIX"
-}
+PKG_CMAKE_OPTS_TARGET="-DFMT_DOC=OFF -DFMT_INSTALL=ON -DFMT_TEST=OFF -DFMT_USE_CPP11=ON"
